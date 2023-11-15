@@ -3,8 +3,9 @@ import java.util.*;
 public class Productions {
     private Character start;
 
-    private Map<Character, Character> terminals;
-    private Map<CharPair, Character> nonTerminals;
+    private Map<Character, List<Character>> terminals;
+    private Map<CharPair, List<Character>> nonTerminals;
+
     public Productions(Character start) {
         this.start = start;
         terminals = new HashMap<>();
@@ -13,17 +14,29 @@ public class Productions {
 
     //TODO MAPS sollten nicht gehen weil eine Production nicht immer eindeutig zugeordnet werden kann
     public void addTerminalProd(Character start, Character end) {
-        terminals.put(end, start);
-    }
-    public void addNonTerminalProd(Character start, Character end1, Character end2) {
-        nonTerminals.put(new CharPair(end1, end2), start);
+        if (terminals.containsKey(end)) {
+            terminals.get(end).add(start);
+            return;
+        }
+        terminals.put(end, new ArrayList<>());
+        terminals.get(end).add(start);
     }
 
-    public Character get(Character nonTerminal1, Character nonTerminal2) {
+    public void addNonTerminalProd(Character start, Character end1, Character end2) {
+        CharPair charPair = new CharPair(end1, end2);
+        if (nonTerminals.containsKey(charPair)) {
+            nonTerminals.get(charPair).add(start);
+            return;
+        }
+        nonTerminals.put(charPair, new ArrayList<>());
+        nonTerminals.get(charPair).add(start);
+    }
+
+    public List<Character> get(Character nonTerminal1, Character nonTerminal2) {
         return nonTerminals.get(new CharPair(nonTerminal1, nonTerminal2));
     }
 
-    public Character get(Character terminal) {
+    public List<Character> get(Character terminal) {
         return terminals.get(terminal);
     }
 

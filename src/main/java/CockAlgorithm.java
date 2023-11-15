@@ -21,7 +21,9 @@ public class CockAlgorithm {
 
         for (int i = 1; i <= n; i++) {
             //I assume that every char in the input is a valid terminal and that every terminal has a production
-            matrix[i][i].add(prod.get(input.charAt(i - 1)));
+            for (char c : prod.get(input.charAt(i - 1))) {
+                matrix[i][i].add(c);
+            }
         }
         for (int d = 1; d <= n - 1; d++) {
             for (int i = 1; i <= n - d; i++) {
@@ -29,11 +31,11 @@ public class CockAlgorithm {
                 for (int k = i; k <= j - 1; k++) {
                     for (Character char1 : matrix[i][k]) {
                         for (Character char2 : matrix[k + 1][j]) {
-                            Character c = prod.get(char1, char2);
-                            if (c == null){
+                            if (null == prod.get(char1, char2)) {
                                 continue;
                             }
-                            matrix[i][j].add(prod.get(char1, char2));
+                            for (Character c : prod.get(char1, char2))
+                                matrix[i][j].add(c);
                         }
                     }
                 }
