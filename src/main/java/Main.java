@@ -15,7 +15,7 @@ public class Main {
         prod.addNonTerminalProd('C','C','C');
 
         CockAlgorithm cock = new CockAlgorithm(prod);
-        System.out.println(cock.runCockAlgorithm("abcc"));
+        System.out.println(cock.runCockAlgorithm("bcc"));
 
 
     }

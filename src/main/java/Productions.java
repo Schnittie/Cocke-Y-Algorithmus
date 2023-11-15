@@ -12,7 +12,6 @@ public class Productions {
         nonTerminals = new HashMap<>();
     }
 
-    //TODO MAPS sollten nicht gehen weil eine Production nicht immer eindeutig zugeordnet werden kann
     public void addTerminalProd(Character start, Character end) {
         if (terminals.containsKey(end)) {
             terminals.get(end).add(start);
